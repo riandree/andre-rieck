@@ -5,5 +5,7 @@ Sourcecode and AWS CDK Scripts to deploy www.andre-rieck.dev
 that make up the website.
 
 The AWS CDK is then used to create the infrastructure used to serve the site.
-An S3 bucket is set up to keep the static files of this webpage and a CloudFront Distribution
-is created to cache and serve the content SSL encrypted via HTTPS.
+An S3 bucket is set up to keep the static files of this webpage and a CloudFront distribution
+is created to cache and serve the content SSL encrypted via HTTPS. 
+Furthermore a Route53 hosted zone is created in order to setup the DNS mapping andre-rieck.dev to
+the CloudFront distribution.
