@@ -6,4 +6,4 @@ that make up the website.
 
 The AWS CDK is then used to create the infrastructure used to serve the site.
 An S3 bucket is set up to keep the static files of this webpage and a CloudFront Distribution
-is created to cache and serve the content SSL encrypted via HTTP.
+is created to cache and serve the content SSL encrypted via HTTPS.
