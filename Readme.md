@@ -11,5 +11,5 @@ Furthermore a Route53 hosted zone is created in order to setup the DNS mapping a
 the CloudFront distribution.
 
 Since this repository contains personal information (like a picture of myself) the content of this
-repo is not meant to be used (other than viewing it) by some else other than the createor of this repository.
+repo is not meant to be used (other than viewing it) by some else other than the creator of this repository.
 **For this reason there was no license chosen for this repo**.
