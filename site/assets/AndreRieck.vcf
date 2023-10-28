@@ -1,0 +1,18 @@
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:Rieck;André;;Dipl.Ing.(FH), MSc;André Rieck
+FN;CHARSET=UTF-8:Dipl.Ing.(FH), MSc André Rieck
+ORG;CHARSET=UTF-8:Andre Rieck freiberuflicher Softwareentwickler
+TITLE;CHARSET=UTF-8:Senior Softwareentwickler
+URL;WORK:https://www.andre-rieck.dev
+URL;PRIVATE:https://www.andre-rieck.dev
+EMAIL;type=WORK;type=PREF:kontakt@andre-rieck.dev
+TEL;type=HOME;VOICE:0152 320 277 24
+ADR;CHARSET=UTF-8;WORK;type=pref:;;c/o Postflex #5183 Emsdettener Str. 10 (dfgh);Greven;;48268;Deutschland
+LABEL;WORK;PREF;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:c/o Postflex GmbH Emsdettener Str. 10=0D=0A=
+48268 Greven Deutschland
+ADR;CHARSET=UTF-8;HOME;type=pref:;;;Wedel;;22880;Deutschland
+LABEL;HOME;PREF;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:=0D=0A=
+22880 Wedel Deutschland
+REV:2023-10-27T12:52:20+02:00
+END:VCARD

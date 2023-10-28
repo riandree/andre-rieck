@@ -1,0 +1,117 @@
+---
+---
+@import "bootstrap.min";
+
+:root {
+    --bs-body-color: #333333;
+    --header-bg-color: rgba(116, 176, 216, 0.85);
+    --highlight-color: orange;
+    --left-content-margin: 2rem;
+}
+
+$active-nav-border: 2px solid #4F5F6F;
+$margin-top: 5rem;
+
+body {
+    margin-top : $margin-top + 1rem;
+    background-color: #CCCFD8;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 6rem);
+    font-family: 'Roboto', sans-serif;
+}
+
+article {
+    flex-grow: 1;
+    div.errorpage {
+        height: 100%;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: xx-large;
+    }
+}
+
+img {
+    &.andre { 
+        border-radius: 50%;    
+        margin: var(--left-content-margin) 3rem 2rem 1rem;
+    }
+    &.status_image { 
+        position: fixed;
+        top: 1%;
+        left: 40%;
+        z-index: 2000;
+        width: 7em;
+        height: 7em;
+    }
+}
+div.andre {
+    margin-top: 2rem;
+    h1 {
+        font-size: 3rem;
+        font-weight: lighter;
+        &:first-child {
+            margin-bottom: -0.4rem;
+        }
+    }
+    >div hr {
+        display: inline-block;
+        margin-right: 0.5em;
+        border: 1px solid black;
+        width: 3rem;
+    }
+    h2 {        
+        display: inline-block;
+        vertical-align: text-bottom;
+        font-weight: 100;
+        font-size: 1.3rem;
+    }
+}
+
+footer {
+    background-color: var(--header-bg-color);
+    margin-top: 0.3rem;
+}
+
+nav {
+    height: $margin-top;
+    background-color: var(--header-bg-color);
+    a {
+        text-decoration: none;
+        color: var(--bs-body-color); 
+        &.nav-headline {
+            font-family: Poppins;
+            font-size: 2rem;
+        }
+        &.nav-subline { 
+            font-family: Montserrat;
+            font-size: 1rem;
+        }
+    }
+
+    .navbar-collapse {
+        align-self: start;
+        margin-top: 0.5em;
+        font-size: 1.1rem;
+    }
+
+    .nav-item {
+        margin: 0.3rem;
+        &:hover {
+            .nav-link {
+                border-bottom: 3px solid var(--highlight-color);
+                border-radius: 0.5rem;
+            } 
+        }   
+        &:hover {
+            .nav-link.active {
+                border-bottom: $active-nav-border;
+            } 
+        }   
+    }
+    .nav-link.active {
+        border: $active-nav-border;
+        border-radius: 0.5rem;
+    }
+
+}
+
