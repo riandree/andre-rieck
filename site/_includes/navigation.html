@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-lg">
       
-      <div class="navbar-brand d-flex flex-column">
+      <div class="navbar-brand d-flex pt-0 flex-column">
         <a href="/" class="nav-headline">{{ site.navigation_title }}</a>
         <a href="/" class="nav-subline">{{ site.navigation_subtitle }}</a>
       </div>
@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto my-2 my-lg-0">
           {% for navitem in site.data.navigation %}
             <li class="nav-item">
               <a class="nav-link {% if page.url == navitem.url %}active{% endif %}" href="{{ navitem.url }}">{{ navitem.name }}</a>
