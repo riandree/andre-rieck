@@ -1,7 +1,8 @@
 ---
 layout: base
+title: Impressum
+permalink: /impressum.html
 ---
-# Impressum
 
 ## Angaben gem&auml;&szlig; &sect; 5 TMG
 

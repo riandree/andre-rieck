@@ -1,8 +1,8 @@
 ---
 layout: base
+title: Datenschutz­erklärung
+permalink: /datenschutz.html
 ---
-Datenschutz­erklärung
-=====================
 
 1\. Datenschutz auf einen Blick
 -------------------------------

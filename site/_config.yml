@@ -34,7 +34,7 @@ navigation_subtitle: Dipl.Ing. (FH), MSc.
 footer_company_name: André Rieck
 year_site_created: 2023
 
-status_image: under-construction.png
+# status_image: under-construction.png
 
 # Build settings
 theme: minima
