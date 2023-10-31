@@ -5,6 +5,7 @@
 :root {
     --bs-body-color: #333333;
     --header-bg-color: rgba(116, 176, 216, 0.85);
+    --dark-bg-color: rgba(116, 176, 216, 1);
     --highlight-color: orange;
 }
 
@@ -77,11 +78,11 @@ nav {
         text-decoration: none;
         color: var(--bs-body-color); 
         &.nav-headline {
-            font-family: Poppins;
+            font-family: Poppin, sans-serif;
             font-size: 2.2rem;
         }
         &.nav-subline { 
-            font-family: Montserrat;
+            font-family: Montserrat, sans-serif;
             font-size: 0.9rem;
         }
     }
@@ -112,3 +113,12 @@ nav {
 
 }
 
+ul.post-list {
+    list-style-type: none;
+    li { 
+        margin: 1rem;
+    }
+    .card-body {
+        background-color: #BDBFCB;
+    }
+}

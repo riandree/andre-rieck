@@ -12,24 +12,28 @@ layout: base
       {% assign posts = site.posts %}
     {% endif %}
   
-  
-    {%- if posts.size > 0 -%}
+    <!-- FixME if posts.size > 0 -->
+    <span>Aktuell sind keine Blog-Posts vorhanden.</span>
+    {%- if posts.size > 9990 -%}
       {%- if page.list_title -%}
         <h2 class="post-list-heading">{{ page.list_title }}</h2>
       {%- endif -%}
-      <ul class="post-list">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <ul class="post-list d-flex flex-wrap">
+        {%- assign date_format = "%d.%m.%Y" -%}
         {%- for post in posts -%}
         <li>
-          <span class="post-meta">{{ post.date | date: date_format }}</span>
-          <h3>
-            <a class="post-link" href="{{ post.url | relative_url }}">
-              {{ post.title | escape }}
-            </a>
-          </h3>
-          {%- if site.show_excerpts -%}
-            {{ post.excerpt }}
-          {%- endif -%}
+          <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title | escape }}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary"><span class="post-meta">{{ post.date | date: date_format }}</span></h6>
+              {%- if site.show_excerpts -%}
+                <p class="card-text">{{ post.excerpt }}</p>
+              {%- endif -%}
+              <a class="card-link" href="{{ post.url | relative_url }}">
+                {{ post.title | escape }}
+              </a>
+            </div>
+          </div>
         </li>
         {%- endfor -%}
       </ul>
