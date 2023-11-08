@@ -12,9 +12,7 @@ layout: base
       {% assign posts = site.posts %}
     {% endif %}
   
-    <!-- FixME if posts.size > 0 -->
-    <span>Aktuell sind keine Blog-Posts vorhanden.</span>
-    {%- if posts.size > 9990 -%}
+    {%- if posts.size > 0 -%}
       {%- if page.list_title -%}
         <h2 class="post-list-heading">{{ page.list_title }}</h2>
       {%- endif -%}

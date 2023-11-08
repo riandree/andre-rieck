@@ -2,6 +2,7 @@
 ---
 @import "bootstrap.min";
 
+
 :root {
     --bs-body-color: #333333;
     --header-bg-color: rgba(116, 176, 216, 0.85);
@@ -120,5 +121,41 @@ ul.post-list {
     }
     .card-body {
         background-color: #BDBFCB;
+    }
+}
+
+figure.highlight {
+    font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9375rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    background-color: #eeeeff;
+
+    pre {
+        padding: 8px 12px;
+        overflow-x: auto;
+
+        code.language-java {
+            .kd {
+                font-weight: bolder;
+                color: blue;
+            }
+            .nc {
+                font-weight: bolder;
+            }
+            .n {
+                color: darkorchid;
+                font-weight: bold;
+            }
+            .na {
+                font-style: italic;
+            }
+            .s, .sh {
+                color : green;
+            }
+            .c1 {
+                color: gray;
+            }
+        }
     }
 }
