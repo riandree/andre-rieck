@@ -71,6 +71,12 @@ export class InfrastructureStack extends Stack {
       domainName : 'andre-rieck.dev',
       recordName : 'www'
     });
+    new route53.MxRecord(this, 'mxrecord', {
+        zone: siteZone,
+        values : [ { priority : 10, hostName : "mx00.ionos.de" },
+                   { priority : 20, hostName : "mx01.ionos.de" },
+       ]
+    }); 
 
     const nsArray = siteZone.hostedZoneNameServers as string[];
     const nsList = Fn.join(',', nsArray );
