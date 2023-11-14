@@ -15,7 +15,7 @@ In der Praxis kommt es jedoch trozdem vor, daß sich solche Typprüfungen nicht 
 weil eine Library oder eine API mit der gearbeitet werden soll polymorphes Verhalten nicht einfach unterstützt und
 der Ansatz über eine Typprüfung mit `instanceof` den pragmatischsten Weg darstellt.
 
-Hier findet sich in Java Code dann immer wieder folgendes Idiom :
+Hier findet sich in Java Code dann immer wieder folgendes das als "instanceof and cast" bekannte Idiom  :
 
 {% highlight java %}
     final SomeBasicType instance2WorkOn = determineOderComputerSomeObject();
@@ -33,7 +33,7 @@ Hier findet sich in Java Code dann immer wieder folgendes Idiom :
 d.h. es findet eine Typprüfung zur Laufzeit und im Anschluss ein entsprechender Cast statt um dann
 auf der gecasteten Referenz zu arbeiten.
 In Java 16 wurde mit JEP-394 final das Feature *"Pattern Matching for instanceof"* als Bestandteil von Java aufgenommen,
-daß die Typprüfung und den anschliessenden Cast deutlich eleganter ermöglicht. 
+daß die Typprüfung und den anschliessenden Cast vereinfacht. 
 
 {% highlight java %}
     final SomeBasicType instance2WorkOn = determineOderComputerSomeObject();

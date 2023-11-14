@@ -5,4 +5,176 @@ date:   2023-10-29 12:00:00 +0200
 categories: java
 ---
 
-in Arbeit
+Mit JEP-395 und Java 16 wurden Record Classes final als Feature in die Sprache Java aufgenommen.
+Records sind spezielle Klassen die es sehr einfach machen unveränderliche Datencontainer mit Wertsemantik zu erstellen ohne den sonst bei Java notwendigen Boilerplate-Code oder die Verwendung von Libraries wie Lombok. 
+
+Die Implementierungen für die benötigten Zugriffsmethoden, einen entsprechenden Konstruktor,
+Implementierungen für hashCode, equals und toString werden für records implizit vom Compiler
+erzeugt.
+
+Anwendungsgebiete für Records sind z.b. DTO's, Wertobjekte für Methoden die mehr als einen 
+Wert zurückgeben sollen, Compound-Keys für Maps, komplexe Value Object als Methodenparameter etc.<br>
+Wichtig ist, das `record`'s immer Zugriffsmethoden auf sämtliche Member bieten, also kein Information-Hiding
+im Sinne der Objektorientierung umsetzen, und dies auch nicht gewollt ist. Records sind also wirklich nur 
+transparente und unveränderliche Datencontainer.
+
+#### Beispiel 
+
+Im folgenden ist zunächst der Code ohne Verwendung von Records für eine Klasse von Value-Objects für wie sie z.b. für Sensordaten-Messwerte
+aussehen könnte. Für diese Klasse müssen also folgende Teile bereitgestellt werden
+
+- private Member für die einzelnen Attribute einer Sensordaten-Messung
+- Ein Konstruktor der den Zustand der Sensordaten-Messung übergeben bekommt
+- Getter für die einzelnen Attribute
+- Korrekte Implementierungen für die Methoden hashCode() und equals() damit Objekte der Klasse sich z.b. bei der Verwendung als Keys von HashMaps korrekt verhalten etc.
+- bei Bedarf eine toString() Methode
+
+##### Implementierung einer Value-Object Klasse ohne Record-Class
+
+{% highlight java %}
+    public class SensorMeasurement {
+        private final LocalDateTime timestamp;
+        private final UUID sensorId;
+        private final double sensorValue;
+
+        public SensorMeasurement(LocalDateTime timestamp, UUID sensorId, double sensorValue) {
+            this.timestamp = timestamp;
+            this.sensorId = sensorId;
+            this.sensorValue = sensorValue;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SensorMeasurement that = (SensorMeasurement) o;
+            return Double.compare(sensorValue, that.sensorValue) == 0 && Objects.equals(timestamp, that.timestamp) && Objects.equals(sensorId, that.sensorId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(timestamp, sensorId, sensorValue);
+        }
+
+        public LocalDateTime getTimestamp() {
+            return timestamp;
+        }
+
+        public UUID getSensorId() {
+            return sensorId;
+        }
+
+        public double getSensorValue() {
+            return sensorValue;
+        }
+    }
+{% endhighlight %}
+
+Hier ist also für eine recht einfache Klasse eines Value-Object doch recht viel Boilerplate-Code zu schreiben. Bei
+Erweiterungen der Klasse um weitere Attribute ist ausserdem darauf zu achten, daß die neuen Attribute ebenfalls für hashCode/equals
+Berücksichtigung finden. Alternativ wäre es möglich auf Libraries wie Lombok oder Apache-Commons zu setzen um die Implementierung zu
+vereinfachen und Boilerplate-Code zu sparen.
+<p><b>Unabhängig davon, daß hier viel Boilerplate geschrieben werden muss, ist auch nicht sofort ersichtlich, daß es sich hier um eine Klasse
+mit Wertsemantik handelt. Evtl. könnte diese Semantik sogar durch Änderungen in der Zukunft verloren gehen.</b></p>
+
+##### Implementierung mit Record-Class
+
+Die Intention von Record-Classes ist es die Implementierung unveränderlicher Value Klassen einfach zu machen. Der Umstand, daß es
+sich um eine Klasse mit Wertsemantik handelt ist sofort ersichtlich und es ist auch durch Ergänzungen am `record` nicht möglich die
+Wertsemantik aufzuheben.<br>
+
+Das o.g. Beispiel kann mit einer Record-Class wie folgt umgesetzt werden.
+
+{% highlight java %}
+    public record SensorMeasurement(LocalDateTime timestamp, String sensorId, double sensorValue) {}
+{% endhighlight %}
+
+Einerseits stellt dies eine dramatische Reduktion an Code dar, <u>andererseits wird mit der Deklaration einer `record` Klasse
+sofort die Value-Semantik dieser Klasse ersichtlich</u> und schliesslich ist eine korrekte Implementierung der Methoden `equals` und `hashCode` automatisch sichergestellt. Darüber hinaus wird auch eine `toString` Methode generiert die im o.g. Beispiel z.b. folgenden String
+erzeugen würde.
+
+    `SensorMeasurement[timestamp=2023-11-14T15:26:53.412139300, sensorId=908eec7a-c490-4592-b6ef-8a2697f57cd6, sensorValue=42.24]`
+
+Um zu verdeutlichen was der Compiler aus einer `record` Klasse macht, wurde der Bytecode des gerade gezeigten `record` einmal mittels `javap` (dem JDK Disassembler) mit folgendem Ergebnis disassembliert :
+
+    // Erzeugt mit dem JDK Disassembler javap
+    Compiled from "RecordsDemo.java"
+    public final class de.arieck.example.RecordsDemo$SensorMeasurement extends java.lang.Record {
+      private final java.time.LocalDateTime timestamp;
+      private final java.util.UUID sensorId;
+      private final double sensorValue;
+      public de.arieck.example.RecordsDemo$SensorMeasurement(java.time.LocalDateTime, java.util.UUID, double);
+      public final java.lang.String toString();
+      public final int hashCode();
+      public final boolean equals(java.lang.Object);
+      public java.time.LocalDateTime timestamp();
+      public java.util.UUID sensorId();
+      public double sensorValue();
+    }
+
+Hier sind folgende wichtige Erkenntnisse ableitbar :
+
+* Records erben implizit von `java.lang.Record` und können also nicht von anderen Klassen erben.
+* Records sind implizit `final`, d.h. andere Klassen können nicht von `record`'s erben.
+* Für alle Attribute des Records werden `private final` Felder erstellt.
+* Es wird ein Konstruktor mit allen Attributen des `record` erstellt.  
+* Es werden automatisch Implementierungen der Methoden `hashCode`, `equals` und `toString` erzeugt.
+* Für jedes Attribut des `record` wird eine gleichnamige Zugriffsmethode generiert.
+
+**weitere wichtige Eigenschaften**
+
+Zu beachten ist, daß keine Java-Bean kompatiblen Getter erzeugt werden, sondern die Zugriffsmethoden so benannt sind wie die im `record` vorhandenen Felder, also z.b. `LocalDateTime timestamp()` und nicht etwa `LocalDateTime getTimestamp()`.
+
+Es ist möglich einem `record` eigene Methoden hinzuzufügen, jedoch ist es verboten weitere Attribute aufzunehmen. 
+Weiterhin ist es auch in eigenen Methoden des `record` nicht möglich die Felder des `record` zu ändern.
+
+Die implizit generierten Zugriffsmethoden können überschrieben werden (siehe Beispiel weiter unten).
+
+**Eigene Konstruktoren**
+
+Es ist möglich dem `record` eigene Konstruktoren hinzuzufügen, die dann letztlich den implizit definierten `record`-Konstruktor über `this(<Konstruktorparameterliste>)` aufrufen müssen. Auch der ansonsten implizit definierte Konstruktor kann als sogenannter **canonical constructor** selbst implementiert werden indem ein Konstruktor mit entsprechender Signatur selbst definiert wird, wobei in diesem Fall kein Aufruf eines anderen Konstruktor via `this` stattfindet und stattdessen sämtlichen Felder des Record ein Wert zugewiesen werden muss.
+
+Als Besonderheit können in der Implementierung von `record` Klassen sogenannte **compact constructors** verwendet werden. Diese Konstruktoren haben keine Parameterliste. Am Ende eines **compact constructor** werden die Parameter des `record` implizit aus der Parameterliste des Konstruktoraufrufes
+zugewiesen, so daß dem **compact constructor** letztlich die Aufgabe zufällt Bedingungen über den Konstruktorparametern zu prüfen und ggf. eine RuntimeException zu werfen.
+
+**Wichtig!** Es ist ***nicht*** möglich gleichzeitg einen 'compact constructor' und einen 'canonical constructor' zu definieren, da beide Konstruktoren die selbe Signatur haben.
+
+Im Folgenden soll ein Beispiel die Verwendung eines **compact constructors** sowie eines weiteren Konstruktors verdeutlichen.
+Zusätzlich zeigt das Beispiel auch, daß die implizit generierten Zugriffsmethoden überschrieben werden können.
+
+{% highlight java %}
+    public record SensorMeasurement(LocalDateTime timestamp, UUID sensorId, double sensorValue) {
+
+        /**
+         * Beispiel für einen 'compact constructor'.
+         */
+        public SensorMeasurement {
+            // Beachte : Es wird hier auf die Felder aus dem Head des Record zugegriffen nicht etwa auf this.timestamp
+            Objects.requireNonNull(timestamp);
+            Objects.requireNonNull(sensorId);
+            // Zum Schluss werden die privaten Felder implizit mit den Werten aus dem Konstruktoraufruf initialisiert.
+            // this.timestamp=timestamp  etc.
+        }
+
+        /**
+         * Beispiel für einen weiteren Konstruktor der den implizit generierten bzw. 'compact constructor' via
+         * 'this' aufruft.
+         */
+        public SensorMeasurement(UUID sensorId, double sensorValue) {
+            this(LocalDateTime.now(), sensorId, sensorValue);
+        }
+
+        /**
+         * Beispiel für das Überschreiben einer impliziten Zugriffsmethode.
+         */
+        @Override
+        public double sensorValue() {
+            // Rückgabe des Sensorwertes auf zwei Stellen nach dem Komma gerundet.
+            return Math.round(this.sensorValue*100)/100.0;
+        }
+    }
+{% endhighlight %}
+
+### Zusammenfassung.
+
+Die mit Java 16 eingeführten `record` Klassen sind ein neues Sprachmittel, um Klassen für unveränderliche Objekte mit Wertsemantik zu erstellen. Sie reduzieren den Boilerplate-Code erheblich und stellen sicher, dass die Wertsemantik erhalten bleibt. Mit Zugriffsmethoden, Konstruktor und Implementierungen für hashCode, equals und toString generiert der Compiler automatisch wichtige Methoden. Records sind transparente und unveränderliche Datencontainer und eignen sich u.a. für Anwendungsfälle wie wie DTOs, Compound-Keys für Maps und komplexe Value Objects als Methodenparameter.

@@ -4,7 +4,7 @@
   url: /skills.html
 - name: Projekte
   url: /projects.html
-#- name: Blog
-#  url: /posts.html
+- name: Blog
+  url: /posts.html
 - name: Kontakt / Links
   url: /kontakt.html

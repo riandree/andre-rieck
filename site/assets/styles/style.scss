@@ -136,11 +136,14 @@ figure.highlight {
         overflow-x: auto;
 
         code.language-java {
-            .kd {
+            .kd, .k {
                 font-weight: bolder;
                 color: blue;
             }
-            .nc {
+            .kc {
+                color: darkcyan;
+            }
+            .nc, .kt {
                 font-weight: bolder;
             }
             .n {
