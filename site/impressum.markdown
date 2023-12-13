@@ -16,7 +16,7 @@ Emsdettener Str. 10<br>
 
 # Kontakt
 
-Telefon: +49 (0) 152 32027724
+<img src="/assets/images/phone.png" width="230">
 
 E-Mail: kontakt@andre-rieck.dev
 

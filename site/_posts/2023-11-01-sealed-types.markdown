@@ -61,31 +61,6 @@ Hier kann also der Compiler aufgrund der `sealed` Eigenschaft des Expr Interface
 
 Weiterhin ist es notwendig, daß alle Subtypen von `sealed` Klassen oder Interfaces sich im gleichen Module befinden und falls es sich bei dem Module um das *unnamed* Module handelt sich Sealed-Typ und Subtypen im gleichen Package befinden. 
 
-#### Beispiel
-
-ToDo
-
 ### Fazit
 
 Sealed classes in JDK 17 provide a powerful mechanism for controlling class extension and implementation. By explicitly specifying permitted classes and interfaces, you enhance encapsulation, improve pattern matching, and achieve better class relationship control. Understanding the nuances of sealed classes can greatly benefit your codebase, leading to cleaner and more maintainable code. Embrace sealed classes in Java to take advantage of this valuable feature and elevate the quality of your code.
-
-
---------
-Funktionale Ansätze der Programmierung werden wichtiger. 
-Ein funktionaler Ansatz sind Algebraische Datentypen. Abgebildet auf OO Sprachen könnte Vererbung genutzt werden
-um verschiedene Ausprägungen eines Union Type darzustellen. Bisher war es aber nicht möglich die möglichen
-Ausprägungen abschliessend aufzuzählen.
-
-When the permitted subclasses are small in size and number, it may be convenient to declare them in the same source file as the sealed class. When they are declared in this way, the sealed class may omit the permits clause and the Java compiler will infer the permitted subclasses from the declarations in the source file.
-abstract sealed class Root { ... 
-    final class A extends Root { ... }
-    final class B extends Root { ... }
-    final class C extends Root { ... }
-}
-
-Sealed Classes and their subclasses need to belong to the same module. Every permitted subclass has to be a direct subclass and has to be either sealed, non-sealed or final.
-
-Record Classes are implicitly final ... können also selbst nicht sealed sein brauchen aber also als Unterklasse einer Sealed Klasse den Modifier "sealed" nicht.
-
-The combination of sealed classes and record classes is sometimes referred to as algebraic data types: Record classes allow us to express product types, and sealed classes allow us to express sum types.
-
