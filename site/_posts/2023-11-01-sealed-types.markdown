@@ -63,4 +63,4 @@ Weiterhin ist es notwendig, daß alle Subtypen von `sealed` Klassen oder Interfa
 
 ### Fazit
 
-Sealed classes in JDK 17 provide a powerful mechanism for controlling class extension and implementation. By explicitly specifying permitted classes and interfaces, you enhance encapsulation, improve pattern matching, and achieve better class relationship control. Understanding the nuances of sealed classes can greatly benefit your codebase, leading to cleaner and more maintainable code. Embrace sealed classes in Java to take advantage of this valuable feature and elevate the quality of your code.
+`sealed types` im JDK 17 bieten einen Mechanismus zur Steuerung der Vererbung und Implementierung. Durch die explizite Angabe zulässiger Subtypen  wird es möglich beim Mustervergleich von Case-Expressions die Vollständigkeit sicherzustellen und es werden Probleme mit nicht für die Vererbung vorgesehenen Basisklassen vermieden. Darüber hinaus unterstützen `sealed types` die Umsetzung Algebraischer Datentypen und damit einen eher funktionalen Programmierstil.
