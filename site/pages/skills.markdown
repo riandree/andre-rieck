@@ -7,7 +7,7 @@ permalink: /skills.html
 
 **Datenbanken / Datenbankzugriff**   SQL mit diversen RDBMS (MariaDB, Mysql, Oracle), NoSQL mit Mongo DB und AWS DynamoDB, jOOQ, JPA / Hibernate, Ebean, FlyWay.
 
-**Programmiersprachen** Java, Typescript, Javascript, Kotlin, bash, Grundkenntnisse in Python.
+**Programmiersprachen** Java, Kotlin, Typescript, Javascript, bash, Grundkenntnisse in Python.
 
 **Cloud / Infrastruktur / CICD**  GitLab, GitHub, Docker, K8S, kustomize, AWS u.a. mit CloudWatch, CDK, Lambda, SQS, SNS, S3, EKS, RDS, API-Gateway, DynamoDB.
 
