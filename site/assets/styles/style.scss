@@ -29,7 +29,41 @@ article {
         font-family: 'Pixelify Sans', sans-serif;
         font-size: xx-large;
     }
+
+    blockquote {
+        margin-left: 3em;
+        p {
+            &::before, &::after {
+                content: "\"";
+            }
+            font-style: italic;
+            margin-bottom: 0;
+        }
+        margin-bottom: 0;
+    }
+    p.citeref {
+        &::before {
+            content: "aus: ";
+        }
+        margin-left: 4em;
+    }
+
+    table {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        th {
+            padding: 0.75em;
+        }
+        td {
+            padding: 0.75em;
+            border: 1px solid grey;
+        }
+    }
+   
 }
+
+
+
 
 img {
     &.andre { 
