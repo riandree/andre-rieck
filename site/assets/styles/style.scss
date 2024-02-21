@@ -47,22 +47,20 @@ article {
         }
         margin-left: 4em;
     }
-
-    table {
-        border: 1px solid grey;
-        border-collapse: collapse;
-        th {
-            padding: 0.75em;
-        }
-        td {
-            padding: 0.75em;
-            border: 1px solid grey;
-        }
-    }
    
 }
 
-
+.post-content table {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    th {
+        padding: 0.75em;
+    }
+    td {
+        padding: 0.75em;
+        border: 1px solid grey;
+    }
+}
 
 
 img {
